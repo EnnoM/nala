@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nala/pages/settings.dart';
 import 'package:nala/services/api_service.dart';
+import 'package:nala/pages/login_page.dart';
 
 class ChatMessage {
   final String text;
@@ -18,6 +19,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _controller = TextEditingController();
   final List<ChatMessage> _messages = [];
+  bool _isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  void _checkLoginStatus() async {
+    final api = ApiService();
+    final token = await api.getToken();
+    setState(() {
+      _isLoggedIn = token != null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +58,28 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
+            if (!_isLoggedIn)
+              GestureDetector(
+                onTap: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                  if (result == true) {
+                    _checkLoginStatus();
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  color: Colors.black,
+                  padding: const EdgeInsets.all(12),
+                  child: const Text(
+                    '🔒 Login',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+              ),
             // Chatverlauf
             Expanded(
               child: ListView.builder(
