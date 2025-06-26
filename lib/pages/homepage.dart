@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nala/pages/settings.dart';
 import 'package:nala/services/api_service.dart';
-import 'package:nala/pages/login_page.dart';
+import 'package:nala/pages/login.dart';
 
 class ChatMessage {
   final String text;

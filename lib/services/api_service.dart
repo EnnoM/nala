@@ -12,7 +12,7 @@ class ApiService {
   }
 
   // LADEN DES TOKENS
-  Future<String?> _getToken() async {
+  Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('jwt_token');
   }
@@ -51,7 +51,7 @@ class ApiService {
   // FRAGE STELLEN
   Future<String> askQuestion(String question) async {
     final url = Uri.parse('$baseUrl/ask');
-    final token = await _getToken();
+    final token = await getToken();
 
     final response = await http.post(
       url,

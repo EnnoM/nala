@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
     if (email.isEmpty || password.isEmpty) {
-      setState(() => _error = 'Bitte fülle alle Felder aus.');
+      setState(() => _error = 'Please fill in mail and password');
       return;
     }
 
@@ -33,10 +33,10 @@ class _LoginPageState extends State<LoginPage> {
       if (success) {
         Navigator.pop(context, true); // Login erfolgreich
       } else {
-        setState(() => _error = 'Login fehlgeschlagen.');
+        setState(() => _error = 'Login failed.');
       }
     } catch (e) {
-      setState(() => _error = 'Fehler: $e');
+      setState(() => _error = 'Error: $e');
     } finally {
       setState(() => _isLoading = false);
     }
@@ -47,9 +47,9 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
       appBar: AppBar(
-        title: const Text("Login"),
+        title: const Text("N A L A - L O G I N"),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade700,
+        backgroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _emailController,
               decoration: const InputDecoration(
-                labelText: 'E-Mail',
+                labelText: 'mail',
                 filled: true,
                 fillColor: Colors.white,
               ),
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: _passwordController,
               obscureText: true,
               decoration: const InputDecoration(
-                labelText: 'Passwort',
+                labelText: "password",
                 filled: true,
                 fillColor: Colors.white,
               ),
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                 ),
-                child: const Text("Einloggen"),
+                child: const Text("login"),
               ),
           ],
         ),
